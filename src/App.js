@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.less';
 import Header from './components/header/Header';
 import Karthome from './components/karthome/Karthome';
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
@@ -14,4 +14,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App; 
