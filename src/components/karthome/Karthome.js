@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
 import CategoryList from '../category/CategoryList';
 
 class Karthome extends Component {
@@ -8,6 +9,7 @@ class Karthome extends Component {
 			<div>
 				<Header />
 				<CategoryList />
+				<Footer />
 			</div>
 		);
 	}

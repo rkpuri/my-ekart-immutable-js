@@ -3,7 +3,8 @@ import IncrementButton from './IncrementButton'
 import DecrementButton from './DecrementButton'
 import { connect } from 'react-redux'
 import { incrementOrder, decrementOrder } from '../../../redux/actions'
- 
+import './Counter.less';
+
 class Counter extends Component {
 	constructor(props) {
 		super(props)
@@ -19,9 +20,9 @@ class Counter extends Component {
 	render() {
 		const { item, increment } = this.props
 		return(
-			<div>
+			<div className="p-cat-item-counter-container">
 				<DecrementButton disabled={item.orderCount?false:true} click={this.decrement} />
-				<span>{item.orderCount}</span>
+				<button className="p-cat-item-count">{item.orderCount}</button>
 				<IncrementButton disabled={false} click={this.increment} />
 			</div>
 		);

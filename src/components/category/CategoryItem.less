@@ -1,3 +1,6 @@
+@grey-1: #666;
+@grey-2: #999;
+
 .p-cat-item {
 	display: inline-block;
 	a {
@@ -7,5 +10,35 @@
 		border: 1px solid black;
 		text-decoration: none;
 		cursor: pointer;
-	}	
+		float: left;
+		text-align: left;
+		position: relative;
+		background-color: white;
+
+		.p-cat-item-img {
+			text-align: center;
+			img {
+				height: 140px;
+			}
+		}
+		.p-cat-item-title {
+			color: @grey-1;
+			font-size: 14px;
+			margin: 0 26px 0 26px;
+		}
+		.p-cat-item-quantity {
+			color: @grey-2;
+			font-size: 14px;
+			margin: 10px 26px 0 26px;
+		}
+		.p-cat-item-price-container {
+			position: absolute;
+			left: 26px;
+			bottom: 35px;
+			.p-cat-item-old-price {
+				color: @grey-2;
+				text-decoration: line-through;
+			}
+		}
+	}
 }
