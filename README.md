@@ -5,3 +5,5 @@ Commands to run sample
 
   - npm run build
   - npm run server
+
+This example is using ImmutableJs.
