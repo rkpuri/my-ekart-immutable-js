@@ -7,7 +7,6 @@ import { getGroceryList } from '../../redux/actions'
 class CategoryList extends Component {
 	render() {
 		const { groceryList } = this.props
-		console.log("g",groceryList)
 		return(
 			<div>
 				{groceryList.map(item => (item) = <CategoryItem item={item} />)}
@@ -17,7 +16,7 @@ class CategoryList extends Component {
 }
 
 const mapStateToProps = state => ({
-    groceryList : state.groceryList
+    groceryList : state
 })
 
 const mapDispatchToProps = dispatch => ({ 

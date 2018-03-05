@@ -5,7 +5,7 @@ import Counter from './counter/Counter'
 class CategoryItem extends Component {
 	render() {
 		const { item } = this.props
-
+console.log(item.imgPath)
 		return(
 			<div className="p-cat-item">
 				<a>
