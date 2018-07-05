@@ -2488,6 +2488,8 @@ Object.defineProperty(exports, "__esModule", {
 var GET_GROCERY_LIST = exports.GET_GROCERY_LIST = "GET_GROCERY_LIST";
 var INCREMENT_ORDER = exports.INCREMENT_ORDER = "INCREMENT_ORDER";
 var DECREMENT_ORDER = exports.DECREMENT_ORDER = "DECREMENT_ORDER";
+var SORT_GROCERY_LIST = exports.SORT_GROCERY_LIST = "SORT_GROCERY_LIST";
+var RESET = exports.RESET = "RESET";
 
 /***/ }),
 /* 34 */
@@ -25293,7 +25295,6 @@ var CategoryList = function (_Component) {
 		value: function render() {
 			var groceryList = this.props.groceryList;
 
-			console.log("g", groceryList);
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -25309,7 +25310,7 @@ var CategoryList = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
 	return {
-		groceryList: state.groceryList
+		groceryList: state
 	};
 };
 
@@ -25368,7 +25369,7 @@ var CategoryItem = function (_Component) {
 		value: function render() {
 			var item = this.props.item;
 
-
+			console.log(item.imgPath);
 			return _react2.default.createElement(
 				'div',
 				{ className: 'p-cat-item' },
@@ -27657,10 +27658,6 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 var initialItems = [new _GroceryItemRecord2.default({ id: 1, name: "Aashirvaad Shudh Chakki Whole Wheat Atta", imgPath: "./assets/aashirvaad.jpg", oldPrice: "₹300", price: "₹220", quantity: "10 kg", orderCount: 0 }), new _GroceryItemRecord2.default({ id: 2, name: "Daawat Rozana Gold Basmati Rice", imgPath: "./assets/daawat.jpg", oldPrice: "₹468", price: "₹370", quantity: "5 kg", orderCount: 0 }), new _GroceryItemRecord2.default({ id: 3, name: "Kellogg's Original & the Best Corn Flakes (Pouch)", imgPath: "./assets/kelloggs.jpg", oldPrice: "₹290", price: "₹270", quantity: "2 kg", orderCount: 0 })];
 var initialState = _immutable2.default.Map(initialItems.map(function (item) {
 	return [item.id, item];
@@ -27673,20 +27670,25 @@ var reducer = function reducer() {
 	var list = void 0;
 	switch (action.type) {
 		case _actionType.GET_GROCERY_LIST:
-			return state.groceryList;
+			return state;
 		case _actionType.INCREMENT_ORDER:
-			return state.groceryList.update(action.item.id, function (item) {
+			return state.update(action.item.id, function (item) {
 				return item.update('orderCount', function () {
 					return item.get('orderCount') + 1;
 				});
 			});
-		/*list = Object.assign([...state.groceryList], 
-  			{[action.item.id-1]: Object.assign({}, state.groceryList[action.item.id-1], {orderCount: ++action.item.orderCount})}
-  			)
-  return Object.assign({}, state, {groceryList:list});*/
 		case _actionType.DECREMENT_ORDER:
-			list = Object.assign([].concat(_toConsumableArray(state.groceryList)), _defineProperty({}, action.item.id - 1, Object.assign({}, state.groceryList[action.item.id - 1], { orderCount: --action.item.orderCount })));
-			return Object.assign({}, state, { groceryList: list });
+			return state.update(action.item.id, function (item) {
+				return item.update('orderCount', function () {
+					return item.get('orderCount') - 1;
+				});
+			});
+		case _actionType.SORT_GROCERY_LIST:
+			return state.sort(function (a, b) {
+				return b.orderCount - a.orderCount;
+			});
+		case _actionType.RESET:
+			return initialState;
 		default:
 			return state;
 	}
@@ -27730,7 +27732,7 @@ var GroceryItemRecord = function (_Immutable$Record) {
 }(_immutable2.default.Record({
 	id: undefined,
 	name: undefined,
-	imagePath: undefined,
+	imgPath: undefined,
 	oldPrice: 0,
 	price: 0,
 	quantity: 0,
