@@ -6,7 +6,7 @@ Commands to run sample
   - npm run build
   - npm run server
 
-http://localhost:8083/public/
+http://localhost:8080/public/
 
 This example is using ImmutableJs.
 
